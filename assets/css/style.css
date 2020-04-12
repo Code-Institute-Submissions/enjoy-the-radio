@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'Arcade';
+    src: url(/assets/fonts/arcade-regular.ttf);
+}
+
+#dataRadioBrowser {
+    display: flex;
+    flex-direction: row;
+}
+
+.infoNameRadioStation {
+    font-family: Arcade;
+    font-size: 36px;
+}
+
+.panelUpRadioStation,
+.panelDownRadioStation {
+    font-size: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#radioControls {
+    display: flex;
+    flex-direction: row;
+}
+
+#radioSelectors {
+    display: flex;
+    flex-direction: row;
+}
