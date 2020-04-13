@@ -16,6 +16,8 @@ console.log(x, Object.keys(x), x.responseJSON);*/
 
 //const countryRadioStation = getCurrentLocationRadio(serverGeoNames);
 
+const dbStations = require('/assets/stations/stations.json')
+
 // ---------------------------------------------------------------- Server Data
 
 function getDataFromServer (dataServer, cb) {
