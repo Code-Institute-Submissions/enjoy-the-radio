@@ -1,35 +1,65 @@
-<img src="https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png" style="margin: 0;">
 
-Welcome Juan Paco,
+# Enjoy The Radio!!
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. You can safely delete this README.md file, or change it for your own project.
+This is my second **Code Institute** milestone product about *Interactive Frontend Development*.
 
-## Gitpod Reminders
+On this website I want to show you a radio application so you can enjoy listening to free radio over the internet.
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+## UX
 
-`python3 -m http.server`
+### User stories
+- As a radio lover you can select a country and one of its radio stations to listen to it in the application.
+- The countries and radio stations that you will find on this site are those that are listed in [Radio Browser Community](http://www.radio-browser.info/gui/#!/).
+- You can access the official site of the radio station.
 
-A blue button should appear to click: *Make Public*,
+![Some Screens](https://github.com/pacotools/enjoy-the-radio/blob/master/assets/images/mockup-Enjoy-The-Radio.png)
 
-Another blue button should appear to click: *Open Browser*.
+### Mockups
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+The mockups for the project are done on the [Vectr](https://vectr.com/) page, which is basically a page to draw pictures. This time it was very practical for me to do it this way. Here some examples:
 
-A blue button should appear to click: *Make Public*,
+![Some Screens](https://github.com/pacotools/enjoy-the-radio/blob/master/assets/images/mockup-Enjoy-The-Radio.png)
 
-Another blue button should appear to click: *Open Browser*.
+## Features
+ 
+[comment]: <> (For the construction of this site the following features were used:)
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the backend lessons.
+### Existing Features
+[comment]: <> (- Scrollspy to identify the section of the page where you are browsing at the `index.html`)
 
-## Updates Since The Instructional Video
+### Features Left to Implement
+[comment]: <> (The following features will be added to the site soon:)
 
-We continually tweak and adjust this template to help give you the best experience. Here are the updates since the original video was made:
+## Technologies Used
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+- HTML, CSS, JS
+- Audio Library [Howler.js](https://github.com/goldfire/howler.js) to control Audio Output.
+- jsQuery
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+## Testing
 
---------
+[comment]: <> (The project was tested to work in **Chrome/Safari** browser of desktops, tablets and phones. Its functionality was tested using the **Chrome** inspect function for different devices.)
 
-Happy coding!
+[comment]: <> (In any case, the situations that need to be corrected are:)
+
+## Deployment
+
+[comment]: <> (The website is published using GitHub Pages and you can visited by clicling the following link: https://pacotools.github.io/msp01-juanpaco-resume/)
+
+[comment]: <> (This project was developed using **GitHub** and **GitPod**. I use the **Code Institute** template.)
+
+[comment]: <> (Both the development and deployment versions and their resources reside on the GitHub platform for educational use. The repository name is `msp01-juanpaco-resume`)
+
+## Credits
+
+### Content
+[comment]: <> (- The texts for all sections were written by me.)
+
+### Media
+[comment]: <> (- The photos and images used in this site are own.)
+
+### Acknowledgements
+
+[comment]: <> (- I thank my mentor Guido Cecilio Garcia Bernal for his valuable observations to make this project more intuitive for the user.)
+[comment]: <> (- Finally I thank these websites where I have found valuable knowledge to continue learning:)
+[comment]: <> (    - Font Media Queries - Martin Michalek from CodePen site https://codepen.io/machal/pen/Bpajbz)
