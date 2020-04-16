@@ -23,7 +23,7 @@ function getData(success, serverName) {
 }
 
 getData(successCountries, serverCountries);
-getData(successRadio,serverRadioBrowser + 'fr');
+getData(successRadio,serverRadioBrowser + 'mx');
 
 function successRadio (response) {
     stations = response.data;
@@ -38,12 +38,14 @@ function error (err) {
 	alert("Error: "+JSON.stringify(err.response.data, null, 2));
 }
 
-function playControl (radioStationUrl) {
+function playControl (radioStationResolved) {
+    console.log(radioStationResolved);
     sound = new Howl({
-            src: [radioStationUrl],
-            html5: true,
-            autoplay: true
-        })
+            src: [radioStationResolved],
+            html5: true
+        });
+    sound.load();
+    sound.play();
 }
 
 function getDataFromServer (dataServer, cb) {
@@ -66,8 +68,7 @@ function getCurrentLocationRadio (geoServer) {
 // ------------------------------------------------------------  Radio Controls
 
 function powerControl () {
-    console.log (stations [22].url);
-    playControl (stations [22].url);
+    playControl (stations [22].url_resolved);
 }
 
 function muteControl () {
@@ -76,19 +77,19 @@ function muteControl () {
 }
 
 function stopStation() {
-    sound.stop()
+    sound.unload();
 }
 
 function nextStation (count) {
-    stopStation();
     muted = true;
     muteControl();
+    stopStation();
     if (stationIndex < countries[countryIndex].stationcount) {
         stationIndex = stationIndex + count;
     } else {
         stationIndex = 0;
     }
-    playControl(stations[stationIndex].url);
+    playControl(stations[stationIndex].url_resolved);
     updatePanel();
 }
 
