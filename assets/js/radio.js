@@ -1,24 +1,50 @@
-//  OPUS 94: http://s5.mexside.net:8256/stream
-
 const serverGeoNames = "http://api.geonames.org/export/geonamesData.js?username=juanpaco";
 const serverRadioBrowser = "https://nl1.api.radio-browser.info/json/stations/bycountrycodeexact/";
+const serverCountries = "https://nl1.api.radio-browser.info/json/countrycodes"
 
-/*const ajaxServer = (server) => $.ajax({
-    url: server,
+var stations = [];
+var countries = [];
+var sound;
+var muted = false;
+var stationIndex = 0;
+var countryIndex = 0;
+var currentCountry = '';
 
-})
-    .done (function (result) {
-        return result;
-    });
+function dataServer (serverName) {
+	return serverName;
+}
 
-var x = ajaxServer(serverRadioBrowser+"mx");
-console.log(x, Object.keys(x), x.responseJSON);*/
+function getData(success, serverName) {
 
-//const countryRadioStation = getCurrentLocationRadio(serverGeoNames);
+    const url = dataServer(serverName);
+    const request = {url};
+    const promise = axios(request);
+    promise.then (success, error);
+}
 
-const dbStations = require('/assets/stations/stations.json')
+getData(successCountries, serverCountries);
+getData(successRadio,serverRadioBrowser + 'fr');
 
-// ---------------------------------------------------------------- Server Data
+function successRadio (response) {
+    stations = response.data;
+}
+
+function successCountries (response) {
+    countries = response.data;
+}
+
+function error (err) {
+    console.log(typeof err.response.data)
+	alert("Error: "+JSON.stringify(err.response.data, null, 2));
+}
+
+function playControl (radioStationUrl) {
+    sound = new Howl({
+            src: [radioStationUrl],
+            html5: true,
+            autoplay: true
+        })
+}
 
 function getDataFromServer (dataServer, cb) {
     $.ajax({
@@ -31,54 +57,60 @@ function getDataFromServer (dataServer, cb) {
 
 // ------------------------------------------------- Interactive User Interfase
 
-function getRadioStations() {
-    var x = ajaxServer(serverRadioBrowser+"mx");
-    console.log(x, Object.keys(x), x.responseJSON);
-
-/*  $.ajax({
-    url: "https://nl1.api.radio-browser.info/json/stations/bycountrycodeexact/mx"
-  })
-    .done (function (result) {
-      return result;
-    });*/
-}
-
-function playRadioStation(radioCodeCountry, radioStation) {
-    getDataFromServer(serverRadioBrowser + radioCodeCountry, function (dataRadioBrowser) {
-        updateRadioStationPanel (dataRadioBrowser[radioStation].favicon);
-        $("#dataRadioBrowser .infoNameRadioStation p").text(dataRadioBrowser[radioStation].name.substring(0,20));
-        $("#dataRadioBrowser .infoBitrateRadioStation p").text(dataRadioBrowser[radioStation].bitrate + " " + dataRadioBrowser[radioStation].codec);
-        $("#dataRadioBrowser .tagRadioStation p").text(dataRadioBrowser[radioStation].tags.substring(0,20));
-        playControl(dataRadioBrowser[radioStation].url_resolved);
-    });
-}
-
 function getCurrentLocationRadio (geoServer) {
     getDataFromServer (geoServer, function (countries) {
         return countries.substr(countries.search("CountryCode=")+13,2);
     });
 }
 
-function updateRadioStationPanel (radioStationData) {
-    $("#dataRadioBrowser img").attr("src", radioStationData);
-    //$("#dataRadioBrowser .infoNameRadioStation p").text(dataRadioBrowser[radioStation].name.substring(0,20));
-    //$("#dataRadioBrowser .infoCountryRadioStation p").text(dataRadioBrowser[radioStation].country);
-    //$("#dataRadioBrowser .infoBitrateRadioStation p").text(dataRadioBrowser[radioStation].bitrate + " " + dataRadioBrowser[radioStation].codec);
-    //$("#dataRadioBrowser .tagRadioStation p").text(dataRadioBrowser[radioStation].tags.substring(0,20));
-}
-
 // ------------------------------------------------------------  Radio Controls
 
 function powerControl () {
-}
-
-function playControl (radioStationUrl) {
-    var sound = new Howl({
-            src: [radioStationUrl],
-            html5: true
-        }).play();
+    console.log (stations [22].url);
+    playControl (stations [22].url);
 }
 
 function muteControl () {
-    return sound.mute(true);
-};
+    muted = !muted;
+    sound.mute(muted);
+}
+
+function stopStation() {
+    sound.stop()
+}
+
+function nextStation (count) {
+    stopStation();
+    muted = true;
+    muteControl();
+    if (stationIndex < countries[countryIndex].stationcount) {
+        stationIndex = stationIndex + count;
+    } else {
+        stationIndex = 0;
+    }
+    playControl(stations[stationIndex].url);
+    updatePanel();
+}
+
+function updatePanel() {
+    $("#dataRadioBrowser img").attr("src",stations[stationIndex].favicon);  
+    $("#dataRadioBrowser .infoCountryRadioStation").text(stations[stationIndex].country);
+    $("#dataRadioBrowser .infoNameRadioStation p").text(stations[stationIndex].name.substring(0,20));
+    $("#dataRadioBrowser .infoBitrateRadioStation p").text(stations[stationIndex].bitrate + " " + stations[stationIndex].codec);
+    $("#dataRadioBrowser .tagRadioStation p").text(stations[stationIndex].tags.substring(0,20));
+}
+
+function nextCountry () {
+    countryIndex += 1;
+    stopStation();
+    getData(successRadio,serverRadioBrowser + countries[countryIndex].name);
+    console.log(countries[countryIndex].name + "  /  "+ countries[countryIndex].stationcount); 
+/*
+    playControl(stations[stationIndex].url_resolved);
+    console.log(sound.state() + " / " + stations[stationIndex].countrycode);
+    $("#dataRadioBrowser img").attr("src",stations[stationIndex].favicon);
+    $("#dataRadioBrowser .infoCountryRadioStation").text(stations[stationIndex].country);
+    $("#dataRadioBrowser .infoNameRadioStation p").text(stations[stationIndex].name.substring(0,20));
+    $("#dataRadioBrowser .infoBitrateRadioStation p").text(stations[stationIndex].bitrate + " " + stations[stationIndex].codec);
+    $("#dataRadioBrowser .tagRadioStation p").text(stations[stationIndex].tags.substring(0,20));*/
+}

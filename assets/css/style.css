@@ -8,13 +8,23 @@
     flex-direction: row;
 }
 
+.panelRadioStation {
+    margin: 0;
+}
+
+.panelRadioStation p {
+    margin: 0;
+}
+
 .infoNameRadioStation {
-    font-family: Arcade;
-    font-size: 36px;
+    padding: 5px;
+    /*font-family: Arcade;*/
+    font-size: 24px;
 }
 
 .panelUpRadioStation,
 .panelDownRadioStation {
+    padding: 2px;
     font-size: 8px;
     display: flex;
     flex-direction: row;
