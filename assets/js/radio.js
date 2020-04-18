@@ -44,13 +44,21 @@ function playControl (pStation, pCountry, pName, pBitrate, pCodec, pTags) {
             src: pStation,
             html5: true,
             format: ['webm'],
-            preload: true,
-            autoplay: true,
             onloaderror: console.log ("error on load: QUE HAGO!!!"),
             onplayerror: console.log ("error on play: QUE HAGO!!!")
         });
     updatePanel (pCountry, pName, pBitrate, pCodec, pTags);
+}
+
+function playStation () {
+    sound.load();
+    sound.play();
     $(".power i").css("color","green");
+}
+
+function stopStation () {
+    sound.inload();
+    $(".power i").css("color","red");
 }
 
 // ------------------------------------------------- Interactive User Interfase
