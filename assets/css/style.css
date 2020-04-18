@@ -3,13 +3,48 @@
     src: url(/assets/fonts/arcade-regular.ttf);
 }
 
-#dataRadioBrowser {
-    display: flex;
-    flex-direction: row;
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #4b627e;
 }
 
+
+h1 {
+    font-size: 1.5em;
+    text-align: center;
+    margin: 20px;
+    color: #FFFBEB;
+}
+
+.card {
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 20px;
+}
+
+/*#dataRadioBrowser {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}*/
+
 .panelRadioStation {
-    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 15px;
+    padding: 15px;
+    border: 1px solid;
+    border-radius: 5px;
+    background-color: black;
+    color: #fff;
+    text-shadow: 
+        0 0 2px #fff,
+        0 0 10px #fff,
+        0 0 20px #0ba9ca,
+        0 0 30px #0ba0ca,
+        0 0 40px #0ba9ca,
+        0 0 50px #0ba9ca;
 }
 
 .panelRadioStation p {
@@ -18,7 +53,7 @@
 
 .infoNameRadioStation {
     padding: 5px;
-    /*font-family: Arcade;*/
+    font-family: Arcade;
     font-size: 24px;
 }
 
@@ -31,12 +66,50 @@
     justify-content: space-between;
 }
 
-#radioControls {
+#radioSelectors {
+    margin-top: 20px;
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
-#radioSelectors {
+#radioControls {
+    margin-bottom: 20px;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+}
+
+button {
+    margin: 5px;
+}
+
+.metal {
+  color: hsla(0,0%,20%,1);
+  text-shadow: hsla(0,0%,40%,.5) 0 -1px 0, hsla(0,0%,100%,.6) 0 2px 1px;
+  
+  background-color: hsl(0,0%,90%);
+  box-shadow: inset hsla(0,0%,15%,  1) 0  0px 0px 1.5px, /* border */
+    inset hsla(0,0%,15%, .8) 0 -1px 4px 3px, /* soft SD */
+    inset hsla(0,0%,0%, .25) 0 -1px 0px 6px, /* bottom SD */
+    inset hsla(0,0%,100%,.7) 0  2px 1px 6px, /* top HL */
+    
+    hsla(0,0%, 0%,.15) 0 -3px 4px 2px, /* outer SD */
+    hsla(0,0%,100%,.5) 0  3px 4px 2px; /* outer HL */ 
+  
+  transition: color .2s;
+}
+
+.metal.linear {
+  width: 50px;
+  height: 40px;
+  border-radius: 5px;
+  background-image: -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0)   6%, hsla(0,0%,100%, .1) 7.5%),
+    -webkit-repeating-linear-gradient(left, hsla(0,0%,  0%,0) 0%, hsla(0,0%,  0%,0)   4%, hsla(0,0%,  0%,.03) 4.5%),
+    -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0) 1.2%, hsla(0,0%,100%,.15) 2.2%),
+
+    linear-gradient(180deg, hsl(0,0%,78%)  0%, 
+    hsl(0,0%,90%) 47%, 
+    hsl(0,0%,78%) 53%,
+    hsl(0,0%,70%)100%);
 }

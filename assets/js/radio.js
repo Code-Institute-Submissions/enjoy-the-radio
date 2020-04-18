@@ -1,7 +1,10 @@
 const serverGeoNames = "http://api.geonames.org/export/geonamesData.js?username=juanpaco";
-const serverRadioBrowser = "https://nl1.api.radio-browser.info/json/stations/bycountrycodeexact/";
-const serverCountries = "https://nl1.api.radio-browser.info/json/countrycodes"
+const serverRadioBrowser = "https://nl1.api.radio-browser.info/json/stations/bycountryexact/";
+const serverCountries = "https://nl1.api.radio-browser.info/json/countries";
 
+const iFavicon = "assets/images/live-broadcast-icon.png";
+
+var power = false;
 var stations = [];
 var countries = [];
 var sound;
@@ -15,7 +18,6 @@ function dataServer (serverName) {
 }
 
 function getData(success, serverName) {
-
     const url = dataServer(serverName);
     const request = {url};
     const promise = axios(request);
@@ -23,7 +25,7 @@ function getData(success, serverName) {
 }
 
 getData(successCountries, serverCountries);
-getData(successRadio,serverRadioBrowser + 'mx');
+getData(successRadio,serverRadioBrowser + 'mexico');
 
 function successRadio (response) {
     stations = response.data;
@@ -48,14 +50,14 @@ function playControl (radioStationResolved) {
     sound.play();
 }
 
-function getDataFromServer (dataServer, cb) {
+/*function getDataFromServer (dataServer, cb) {
     $.ajax({
         url: dataServer
     })
         .done (function (result) {
             cb(result);
         });
-}
+}*/
 
 // ------------------------------------------------- Interactive User Interfase
 
@@ -68,7 +70,15 @@ function getCurrentLocationRadio (geoServer) {
 // ------------------------------------------------------------  Radio Controls
 
 function powerControl () {
-    playControl (stations [22].url_resolved);
+    power = !power;
+    if (power) {
+        playControl (stations [0].url_resolved);
+        updatePanel(stations[0].favicon, stations[0].country, stations[0].name, 
+        stations[0].bitrate, stations[0].codec, stations[0].tags);
+        $(".power i").css("color","green"); 
+    } else {
+        stopStation();
+    }
 }
 
 function muteControl () {
@@ -78,6 +88,8 @@ function muteControl () {
 
 function stopStation() {
     sound.unload();
+    updatePanel(iFavicon, "", "set power on...", "", "", "");
+    $(".power i").css("color","red");
 }
 
 function nextStation (count) {
@@ -90,15 +102,16 @@ function nextStation (count) {
         stationIndex = 0;
     }
     playControl(stations[stationIndex].url_resolved);
-    updatePanel();
+    updatePanel(stations[stationIndex].favicon, stations[stationIndex].country, stations[stationIndex].name, 
+        stations[stationIndex].bitrate, stations[stationIndex].codec, stations[stationIndex].tags);
 }
 
-function updatePanel() {
-    $("#dataRadioBrowser img").attr("src",stations[stationIndex].favicon);  
-    $("#dataRadioBrowser .infoCountryRadioStation").text(stations[stationIndex].country);
-    $("#dataRadioBrowser .infoNameRadioStation p").text(stations[stationIndex].name.substring(0,20));
-    $("#dataRadioBrowser .infoBitrateRadioStation p").text(stations[stationIndex].bitrate + " " + stations[stationIndex].codec);
-    $("#dataRadioBrowser .tagRadioStation p").text(stations[stationIndex].tags.substring(0,20));
+function updatePanel(sFavicon, sCountry, sName, sBitrate, sCodec, sTags) {
+    $("#dataRadioBrowser img").attr("src",sFavicon);  
+    $("#dataRadioBrowser .infoCountryRadioStation").text(sCountry);
+    $("#dataRadioBrowser .infoNameRadioStation p").text(sName.substring(0,20));
+    $("#dataRadioBrowser .infoBitrateRadioStation p").text(sBitrate + " " + sCodec);
+    $("#dataRadioBrowser .tagRadioStation p").text(sTags.substring(0,20));
 }
 
 function nextCountry () {
@@ -106,12 +119,4 @@ function nextCountry () {
     stopStation();
     getData(successRadio,serverRadioBrowser + countries[countryIndex].name);
     console.log(countries[countryIndex].name + "  /  "+ countries[countryIndex].stationcount); 
-/*
-    playControl(stations[stationIndex].url_resolved);
-    console.log(sound.state() + " / " + stations[stationIndex].countrycode);
-    $("#dataRadioBrowser img").attr("src",stations[stationIndex].favicon);
-    $("#dataRadioBrowser .infoCountryRadioStation").text(stations[stationIndex].country);
-    $("#dataRadioBrowser .infoNameRadioStation p").text(stations[stationIndex].name.substring(0,20));
-    $("#dataRadioBrowser .infoBitrateRadioStation p").text(stations[stationIndex].bitrate + " " + stations[stationIndex].codec);
-    $("#dataRadioBrowser .tagRadioStation p").text(stations[stationIndex].tags.substring(0,20));*/
 }

@@ -6,16 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css" type="text/css" />
+    <script src="https://kit.fontawesome.com/31cb292768.js" crossorigin="anonymous"></script>    
     <link rel="stylesheet" href="/assets/css/style.css" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-    <!-- Lambda Library 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.25.0/ramda.min.js"></script>-->
 
     <!-- Our JavaScript file -->
     <script type="text/javascript" src="/assets/js/radio.js"></script>
@@ -24,53 +18,49 @@
 </head>
 
 <body>
-  <div id="dataRadioBrowser" class="card">
-    <img src="assets/images/live-broadcast-icon.png" height="50" width="50" alt="fav st">
 
-    <div class="panelRadioStation">
-        
-        <div class="panelUpRadioStation">
-            <div class="infoCountryRadioStation">
-                <p></p>
-            </div>
-            <div class="infoBitrateRadioStation">
-                <p></p>
+    <h1>Enjoy The Radio!</h1>
+
+    <div id="dataRadioBrowser" class="card metal">
+        <div class="panelRadioStation">
+            <img src="assets/images/live-broadcast-icon.png" height="50" width="50" alt="fav st">
+            <div class="panelInfoRadioStation">
+                <div class="panelUpRadioStation">
+                    <div class="infoCountryRadioStation">
+                        <p></p>
+                    </div>
+                    <div class="infoBitrateRadioStation">
+                        <p></p>
+                    </div>
+                </div>
+                <div class="infoNameRadioStation">
+                    <p>set power on...</p>
+                </div>
+                <div class="panelDownRadioStation">
+                    <div class="tagRadioStation">
+                        <p></p>
+                    </div>
+                    <div class="favoriteRadioStation">
+                        <i class="far fa-heart"></i>
+                        <!--<i class="fas fa-heart"></i>-->
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <div class="infoNameRadioStation">
-            <p>set power on...</p>
+        <div id="radioSelectors">
+            <button class="metal linear" onclick="getCurrentLocationRadio ()"><i class="fas fa-music"></i></button>
+            <button class="metal linear" onclick="getRadioStations()"><i class="fas fa-align-left"></i></button>
+            <button class="power metal linear" onclick="powerControl ()"><i class="fas fa-power-off"></i></button>
         </div>
-        
-        <div class="panelDownRadioStation">
-            <div class="tagRadioStation">
-                <p></p>
-            </div>
-            <div class="favoriteRadioStation">
-                <i class="fas fa-heart"></i>
-                <!--<i class="fas fa-heart"></i>-->
-            </div>
+        <div id="radioControls">
+            <button class="metal linear" onclick="nextStation(-1)"><i class="fas fa-minus"></i></button>
+            <button class="metal linear" onclick="nextStation(+1)"><i class="fas fa-plus"></i></button>
+            <button class="metal linear" onclick="nextCountry(-1)"><i class="fas fa-minus"></i></button>
+            <button class="metal linear" onclick="nextCountry(+1)"><i class="fas fa-plus"></i></button>
         </div>
     </div>
-  </div>
 
-  <div id="radioSelectors" class="card">
-    <button onclick="muteControl ()">mute</button>
-    <button onclick="getCurrentLocationRadio ()">song</button>
-    <button onclick="getRadioStations()">lyrics</button>
-    <button onclick="powerControl ()">power</button>
-
-  </div>
-
-  <div id="radioControls" class="card">
-    <button onclick="playRadioStation ('mx',22)">volume</button>
-    <button onclick="nextStation(-1)">-st</button>
-    <button onclick="nextStation(+1)">+st</button>
-    <button onclick="nextCountry(-1)">-ct</button>
-    <button onclick="nextCountry(+1)">+ct</button>
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.3/howler.core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.3/howler.core.min.js"></script>
 
 </body>
 
