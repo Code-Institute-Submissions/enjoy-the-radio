@@ -1,7 +1,7 @@
-@font-face {
+/*@font-face {
     font-family: 'Arcade';
     src: url(/assets/fonts/arcade-regular.ttf);
-}
+}*/
 
 body {
     font-family: 'Roboto', sans-serif;
@@ -20,6 +20,7 @@ h1 {
     border: 1px solid;
     border-radius: 5px;
     margin: 20px;
+    background-color: #e5e5e5
 }
 
 /*#dataRadioBrowser {
@@ -30,7 +31,7 @@ h1 {
 
 .panelRadioStation {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     margin: 15px;
     padding: 15px;
@@ -39,7 +40,7 @@ h1 {
     background-color: black;
     color: #fff;
     text-shadow: 
-        0 0 2px #fff,
+        0 0 5px #fff,
         0 0 10px #fff,
         0 0 20px #0ba9ca,
         0 0 30px #0ba0ca,
@@ -53,7 +54,7 @@ h1 {
 
 .infoNameRadioStation {
     padding: 5px;
-    font-family: Arcade;
+    /*font-family: Arcade;*/
     font-size: 24px;
 }
 
@@ -82,34 +83,26 @@ h1 {
 
 button {
     margin: 5px;
+    width: 50px;
+    height: 40px;
+    border-radius: 5px;
 }
 
 .metal {
-  color: hsla(0,0%,20%,1);
-  text-shadow: hsla(0,0%,40%,.5) 0 -1px 0, hsla(0,0%,100%,.6) 0 2px 1px;
-  
-  background-color: hsl(0,0%,90%);
-  box-shadow: inset hsla(0,0%,15%,  1) 0  0px 0px 1.5px, /* border */
-    inset hsla(0,0%,15%, .8) 0 -1px 4px 3px, /* soft SD */
-    inset hsla(0,0%,0%, .25) 0 -1px 0px 6px, /* bottom SD */
-    inset hsla(0,0%,100%,.7) 0  2px 1px 6px, /* top HL */
-    
-    hsla(0,0%, 0%,.15) 0 -3px 4px 2px, /* outer SD */
-    hsla(0,0%,100%,.5) 0  3px 4px 2px; /* outer HL */ 
-  
-  transition: color .2s;
+  color: #333333;
+  text-shadow: #66666680 0 -1px 0, #ffffff99 0 2px 1px;
+  background-color: #e5e5e5;
+  box-shadow:
+    inset #262626 0  0px 0px 1.5px, /* border */
+    inset #262626cc 0 -1px 4px 3px, /* soft SD */
+    inset #00000040 0 -1px 0px 6px, /* bottom SD */
+    inset #ffffffb3 0  2px 1px 6px; /* top HL */
 }
 
-.metal.linear {
-  width: 50px;
-  height: 40px;
-  border-radius: 5px;
-  background-image: -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0)   6%, hsla(0,0%,100%, .1) 7.5%),
-    -webkit-repeating-linear-gradient(left, hsla(0,0%,  0%,0) 0%, hsla(0,0%,  0%,0)   4%, hsla(0,0%,  0%,.03) 4.5%),
-    -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0) 1.2%, hsla(0,0%,100%,.15) 2.2%),
-
-    linear-gradient(180deg, hsl(0,0%,78%)  0%, 
-    hsl(0,0%,90%) 47%, 
-    hsl(0,0%,78%) 53%,
-    hsl(0,0%,70%)100%);
+.metal .linear {
+  background-image: 
+    -webkit-repeating-linear-gradient(left, #ffffff00 0%, #ffffff00   6%, #ffffff1a 7.5%),
+    -webkit-repeating-linear-gradient(left, #00000000 0%, #00000000   4%, #00000008 4.5%),
+    -webkit-repeating-linear-gradient(left, #ffffff00 0%, #ffffff00 1.2%, #ffffff26 2.2%),
+    linear-gradient(180deg, #c6c6c6 0%, #e5e5e5 47%, #c6c6c6 53%, #b2b2b2 100%);
 }

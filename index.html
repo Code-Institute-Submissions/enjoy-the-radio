@@ -7,12 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <script src="https://kit.fontawesome.com/31cb292768.js" crossorigin="anonymous"></script>    
-    <link rel="stylesheet" href="/assets/css/style.css" type="text/css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- Our JavaScript file -->
-    <script type="text/javascript" src="/assets/js/radio.js"></script>
 
     <title>Enjoy the Radio!</title>
 </head>
@@ -21,29 +26,26 @@
 
     <h1>Enjoy The Radio!</h1>
 
-    <div id="dataRadioBrowser" class="card metal">
+    <div id="dataRadioBrowser" class="card metal linear">
         <div class="panelRadioStation">
-            <img src="assets/images/live-broadcast-icon.png" height="50" width="50" alt="fav st">
-            <div class="panelInfoRadioStation">
-                <div class="panelUpRadioStation">
-                    <div class="infoCountryRadioStation">
-                        <p></p>
-                    </div>
-                    <div class="infoBitrateRadioStation">
-                        <p></p>
-                    </div>
+            <div class="panelUpRadioStation">
+                <div class="infoCountryRadioStation">
+                    <p></p>
                 </div>
-                <div class="infoNameRadioStation">
-                    <p>set power on...</p>
+                <div class="infoBitrateRadioStation">
+                    <p></p>
                 </div>
-                <div class="panelDownRadioStation">
-                    <div class="tagRadioStation">
-                        <p></p>
-                    </div>
-                    <div class="favoriteRadioStation">
-                        <i class="far fa-heart"></i>
-                        <!--<i class="fas fa-heart"></i>-->
-                    </div>
+            </div>
+            <div class="infoNameRadioStation">
+                <p>set power on...</p>
+            </div>
+            <div class="panelDownRadioStation">
+                <div class="tagRadioStation">
+                    <p></p>
+                </div>
+                <div class="favoriteRadioStation">
+                    <i class="far fa-heart"></i>
+                    <!--<i class="fas fa-heart"></i>-->
                 </div>
             </div>
         </div>
@@ -58,9 +60,23 @@
             <button class="metal linear" onclick="nextCountry(-1)"><i class="fas fa-minus"></i></button>
             <button class="metal linear" onclick="nextCountry(+1)"><i class="fas fa-plus"></i></button>
         </div>
+        <!--<div id="accordion" class="metal"> 
+            <h3>countries</h3>
+            <div>
+                <p>all contries</p>
+            </div>
+            <h3>stations</h3>
+            <div>
+                <p>all stations</p>
+            </div>
+        </div>-->
+    </div>
+    <div id="video" class="card">
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.3/howler.core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js"></script>
+<script type="text/javascript" src="assets/js/radio.js"></script>
+
 
 </body>
 
