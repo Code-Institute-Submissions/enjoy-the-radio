@@ -7,14 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <script src="https://kit.fontawesome.com/31cb292768.js" crossorigin="anonymous"></script>    
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css"/>
     
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
-
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- Our JavaScript file -->
@@ -22,39 +19,45 @@
     <title>Enjoy the Radio!</title>
 </head>
 
-<body>
+<body id="#enjoyTR">
 
-    <h1>Enjoy The Radio!</h1>
-
-    <div id="dataRadioBrowser" class="card metal linear">
-        <div class="panelRadioStation">
-            <div class="panelUpRadioStation">
-                <div class="infoCountryRadioStation">
-                    <p></p>
+    <div class="headerRB">
+        <img src="assets/images/live-broadcast-icon.png" width="50" height="50">
+        <h1>Enjoy The Radio!</h1>
+    </div>
+    <div id="dataRB" class="card">
+        <div class="panelRS">
+            <!--<div class="faviconRS">
+                <img src="assets/images/live-broadcast-icon.png" width="50" height="50" alt="fav">
+            </div>-->
+            <div class="panelDataRS">
+                <div class="panelUpRS">
+                    <div class="infoCountryRS">
+                        <p></p>
+                    </div>
+                    <div class="infoBitrateRS">
+                        <p></p>
+                    </div>
                 </div>
-                <div class="infoBitrateRadioStation">
-                    <p></p>
+                <div class="infoNameRS">
+                    <p>set power on...</p>
                 </div>
-            </div>
-            <div class="infoNameRadioStation">
-                <p>set power on...</p>
-            </div>
-            <div class="panelDownRadioStation">
-                <div class="tagRadioStation">
-                    <p></p>
-                </div>
-                <div class="favoriteRadioStation">
-                    <i class="far fa-heart"></i>
-                    <!--<i class="fas fa-heart"></i>-->
+                <div class="panelDownRS">
+                    <div class="tagRS">
+                        <p></p>
+                    </div>
+                    <div class="favoriteRS">
+                        <!--<i class="far fa-heart"></i>
+                        <i class="fas fa-heart"></i>
+                        <i class="fab fa-intercom"></i>-->
+                    </div>
                 </div>
             </div>
         </div>
         <div id="radioSelectors">
             <button class="metal linear" onclick="getCurrentLocationRadio ()"><i class="fas fa-music"></i></button>
             <button class="metal linear" onclick="getRadioStations()"><i class="fas fa-align-left"></i></button>
-            <button class="metal linear" onclick="playStation ()"><i class="fas fa-play"></i></button>
-            <button class="metal linear" onclick="stopStation ()"><i class="fas fa-stop"></i></button>
-            <button class="power metal linear" onclick="powerControl ()"><i class="fas fa-power-off"></i></button>
+            <button class="playSt metal linear" onclick="playStation ()"><i class="fas fa-play"></i></button>
         </div>
         <div id="radioControls">
             <div>
@@ -68,23 +71,11 @@
                 <p>Countires</p>
             </div>
         </div>
-        <!--<div id="accordion" class="metal"> 
-            <h3>countries</h3>
-            <div>
-                <p>all contries</p>
-            </div>
-            <h3>stations</h3>
-            <div>
-                <p>all stations</p>
-            </div>
-        </div>-->
     </div>
-    <div id="video" class="card">
-    </div>
+    <div id="video" class="card"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js"></script>
-<script type="text/javascript" src="assets/js/radio.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js"></script>
+    <script type="text/javascript" src="assets/js/radio.js"></script>
 
 </body>
 

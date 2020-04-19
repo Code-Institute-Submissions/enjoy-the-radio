@@ -2,16 +2,15 @@ const serverGeoNames = "http://api.geonames.org/export/geonamesData.js?username=
 const serverRadioBrowser = "https://nl1.api.radio-browser.info/json/stations/bycountryexact/";
 const serverCountries = "https://nl1.api.radio-browser.info/json/countries";
 
-var power = false;
-$(".power i").css("color","red");
+$(".playSt i").css("color","red");                              // inicialmente en color rojo
 
-var stations = [];
-var countries = [];
-var sound;
-var muted = false;
-var stationIndex = 0;
-var countryIndex = 0;
-var currentCountry = '';
+var stations = [];                                              // array con las estaciones para un país seleccionado
+var countries = [];                                             // array con todos los paises en la bd
+var iStation = 0;                                               // indice con la estación actual que se está escuchando
+var iCountry = 0;                                               // indice con el país actual seleccionado
+var sound = new Howl ({
+    src: "http://s5.mexside.net:8256/stream"
+})
 
 function dataServer (serverName) {
 	return serverName;
@@ -24,118 +23,90 @@ function getData(success, serverName) {
     promise.then (success, error);
 }
 
-getData(successCountries, serverCountries);
-getData(successRadio,serverRadioBrowser + 'méxico');
+function successCountries (response) {
+    countries = response.data;
+    iCountry = countries.length - 1;
+    nextCountry (1);
+    getData(successRadio,serverRadioBrowser + countries[0].name);
+}
 
 function successRadio (response) {
     stations = response.data;
-}
-
-function successCountries (response) {
-    countries = response.data;
+    nextStation (1);
 }
 
 function error (err) {
-	alert("Error: "+JSON.stringify(err.response.data, null, 2));
-}
-
-function playControl (pStation, pCountry, pName, pBitrate, pCodec, pTags) {
-    sound = new Howl({
-            src: pStation,
-            html5: true,
-            format: ['webm'],
-            onloaderror: console.log ("error on load: QUE HAGO!!!"),
-            onplayerror: console.log ("error on play: QUE HAGO!!!")
-        });
-    updatePanel (pCountry, pName, pBitrate, pCodec, pTags);
+	alert("Error: "+JSON.stringify(err.response, null, 2));
 }
 
 function playStation () {
-    sound.load();
-    sound.play();
-    $(".power i").css("color","green");
+    stopStation();
+    if (stations[iStation].url_resolved.includes("M3U8")) {
+        playc();
+    } else {
+        sound = new Howl({
+            src: stations[iStation].url_resolved,
+            html5: true,
+            format: ['webm'],
+            onloaderror: sound.once('load', function(){
+                sound.play();
+            }),
+            onplayerror: sound.once('load', function(){
+                sound.play();
+            })
+        });
+        sound.load();
+        sound.play();
+        if (sound.playing()) {$(".playSt i").css("color","green");}
+    }
 }
 
 function stopStation () {
-    sound.inload();
-    $(".power i").css("color","red");
-}
-
-// ------------------------------------------------- Interactive User Interfase
-
-function getCurrentLocationRadio (geoServer) {
-    getDataFromServer (geoServer, function (countries) {
-        return countries.substr(countries.search("CountryCode=")+13,2);
-    });
-}
-
-// ------------------------------------------------------------  Radio Controls
-
-function powerControl () {
-    power = !power;
-    if (power) {
-        playControl (stations [stationIndex].url_resolved, stations[stationIndex].country, stations[stationIndex].name, 
-        stations[stationIndex].bitrate, stations[stationIndex].codec, stations[stationIndex].tags); 
-    } else {
-        stopStation();
+    if (sound.playing()) {
+        sound.unload();
+        $(".playSt i").css("color","red")
     }
-}
-
-function stopStation(pCountry) {
-    sound.unload();
-    updatePanel (pCountry, "set power on...", "", "", "");
-    $(".power i").css("color","red");
 }
 
 function nextStation (count) {
-    stopStation(countries[countryIndex].name);
-    if (stationIndex < countries[countryIndex].stationcount) {
-        stationIndex = stationIndex + count;
+    stopStation();
+    if (iStation == 0 && count == -1) {
+        iStation = stations.length - 1;
     } else {
-        stationIndex = 0;
+        if (iStation == stations.length - 1 && count == 1) {
+            iStation = 0;
+        } else {
+            iStation += count;
+        }
     }
-    if (stations[stationIndex].codec == "UNKNOWN") {
-        playc(stations[stationIndex].url_resolved, stations[stationIndex].country, stations[stationIndex].name, 
-            stations[stationIndex].bitrate, stations[stationIndex].codec, stations[stationIndex].tags)
-    } else {
-        playControl(stations[stationIndex].url_resolved, stations[stationIndex].country, stations[stationIndex].name, 
-            stations[stationIndex].bitrate, stations[stationIndex].codec, stations[stationIndex].tags);
-    }
-    console.log("Estacion: "+stationIndex + " > " + stations[stationIndex].url_resolved);
-}
-
-function updatePanel (sCountry, sName, sBitrate, sCodec, sTags) {
-    $("#dataRadioBrowser .infoCountryRadioStation").text(sCountry);
-    $("#dataRadioBrowser .infoNameRadioStation p").text(sName.substring(0,20));
-    $("#dataRadioBrowser .infoBitrateRadioStation p").text(sBitrate + " " + sCodec);
-    $("#dataRadioBrowser .tagRadioStation p").text(sTags.substring(0,20));
+    $(".headerRB img").attr("src",stations[iStation].favicon);
+    $("#dataRB .infoNameRS").html("<p>"+stations[iStation].name.substring(0,16)+"</p>");
+    $("#dataRB .infoBitrateRS").html("<p>"+stations[iStation].bitrate + " " + stations[iStation].codec+"</p>");
+    $("#dataRB .tagRS").html("<p>"+stations[iStation].tags.substring(0,35)+"</p>");
+    $("#dataRB .favoriteRS").html("<a href="+stations[iStation].homepage+" target='_blank'><i class='fas fa-globe'></i></a>");
 }
 
 function nextCountry (count) {
-    if (countryIndex < countries.length) {
-        countryIndex = countryIndex + count;
+    stopStation();
+    if (iCountry == 0 && count == -1) {
+        iCountry = countries.length - 1;
     } else {
-        countryIndex = 0;
+        if (iCountry == countries.length - 1 && count == 1) {
+            iCountry = 0;
+        } else {
+            iCountry += count;
+        }
     }
-    stationIndex = 0;
-    getData(successRadio,serverRadioBrowser + countries[countryIndex].name);
-    stopStation(countries[countryIndex].name);
-    console.log(countryIndex + " - Pais: "+countries[countryIndex].name + "  Estaciones:  "+ countries[countryIndex].stationcount);
+    iStation = 0;
+    $("#dataRB .infoCountryRS").html("<p>"+countries[iCountry].name.substring(0,30) + " ("+ countries[iCountry].stationcount + ")"+"</p>");
+    getData(successRadio, serverRadioBrowser + countries[iCountry].name);
 }
 
-$( function() {
-    $( "#accordion" ).accordion();
-  } );
-
-function playc(urlM3U8, pCountry, pName, pBitrate, pCodec, pTags) {
-    
-    updatePanel (pCountry, pName, pBitrate, pCodec, pTags);
-    $(".power i").css("color","green");
-
+function playc() {
     var video = document.getElementById('video');
     //video.height = 300;
 	video.width = 200;
-    var videoSrc = urlM3U8;
+    var videoSrc = stations[iStation].url_resolved;
     if (Hls.isSupported()) {
         var hls = new Hls();
         hls.loadSource(videoSrc);
@@ -144,11 +115,6 @@ function playc(urlM3U8, pCountry, pName, pBitrate, pCodec, pTags) {
             video.play();
         });
     }
-    // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
-    // When the browser has built-in HLS support (check using `canPlayType`), we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video element through the `src` property.
-    // This is using the built-in support of the plain video element, without using hls.js.
-    // Note: it would be more normal to wait on the 'canplay' event below however on Safari (where you are most likely to find built-in HLS support) the video.src URL must be on the user-driven
-    // white-list before a 'canplay' event will be emitted; the last video event that can be reliably listened-for when the URL is not on the white-list is 'loadedmetadata'.
         else if (video.canPlayType('application/vnd.apple.mpegurl')) {
             video.src = videoSrc;
             video.addEventListener('loadedmetadata', function() {
@@ -157,3 +123,9 @@ function playc(urlM3U8, pCountry, pName, pBitrate, pCodec, pTags) {
     }
 }
 
+
+function enjoyTR () {
+    getData(successCountries, serverCountries);
+}
+
+enjoyTR ();
