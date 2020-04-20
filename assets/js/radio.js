@@ -1,28 +1,23 @@
-const serverGeoNames = "http://api.geonames.org/export/geonamesData.js?username=juanpaco";
 const serverRadioBrowser = "https://nl1.api.radio-browser.info/json/stations/bycountryexact/";
 const serverCountries = "https://nl1.api.radio-browser.info/json/countries";
-
-$(".playSt i").css("color","red");                              // inicialmente en color rojo
 
 var stations = [];                                              // array con las estaciones para un país seleccionado
 var countries = [];                                             // array con todos los paises en la bd
 var iStation = 0;                                               // indice con la estación actual que se está escuchando
 var iCountry = 0;                                               // indice con el país actual seleccionado
-var sound = new Howl ({
+var sound = new Howl ({                                         // Howler audio object. Initial constructor
     src: "http://s5.mexside.net:8256/stream"
 })
 
-function dataServer (serverName) {
-	return serverName;
-}
-
+// To get data from server using axios library
 function getData(success, serverName) {
-    const url = dataServer(serverName);
+    const url = serverName;
     const request = {url};
     const promise = axios(request);
     promise.then (success, error);
 }
 
+// Promise function to get countries data
 function successCountries (response) {
     countries = response.data;
     iCountry = countries.length - 1;
@@ -30,6 +25,7 @@ function successCountries (response) {
     getData(successRadio,serverRadioBrowser + countries[0].name);
 }
 
+// Promise function to get radio stations data
 function successRadio (response) {
     stations = response.data;
     nextStation (1);
@@ -39,35 +35,31 @@ function error (err) {
 	alert("Error: "+JSON.stringify(err.response, null, 2));
 }
 
+// Play a station clicked with play button
 function playStation () {
     stopStation();
-    if (stations[iStation].url_resolved.includes("M3U8")) {
-        playc();
-    } else {
-        sound = new Howl({
-            src: stations[iStation].url_resolved,
-            html5: true,
-            format: ['webm'],
-            onloaderror: sound.once('load', function(){
-                sound.play();
-            }),
-            onplayerror: sound.once('load', function(){
-                sound.play();
-            })
-        });
-        sound.load();
-        sound.play();
-        if (sound.playing()) {$(".playSt i").css("color","green");}
-    }
+    sound = new Howl({
+        src: stations[iStation].url_resolved,
+        html5: true,
+        format: ['webm'],
+        onloaderror: sound.once('load', function(){
+            sound.load();
+        }),
+        onplayerror: sound.once('load', function(){
+            sound.play();
+        })       
+    });
+    sound.load();
+    sound.play();
 }
 
 function stopStation () {
     if (sound.playing()) {
         sound.unload();
-        $(".playSt i").css("color","red")
     }
 }
 
+// Increment / Decrement array index of stations to change stations
 function nextStation (count) {
     stopStation();
     if (iStation == 0 && count == -1) {
@@ -86,6 +78,7 @@ function nextStation (count) {
     $("#dataRB .favoriteRS").html("<a href="+stations[iStation].homepage+" target='_blank'><i class='fas fa-globe'></i></a>");
 }
 
+// Increment / Decrement array index of countries to change country
 function nextCountry (count) {
     stopStation();
     if (iCountry == 0 && count == -1) {
@@ -101,28 +94,6 @@ function nextCountry (count) {
     $("#dataRB .infoCountryRS").html("<p>"+countries[iCountry].name.substring(0,30) + " ("+ countries[iCountry].stationcount + ")"+"</p>");
     getData(successRadio, serverRadioBrowser + countries[iCountry].name);
 }
-
-function playc() {
-    var video = document.getElementById('video');
-    //video.height = 300;
-	video.width = 200;
-    var videoSrc = stations[iStation].url_resolved;
-    if (Hls.isSupported()) {
-        var hls = new Hls();
-        hls.loadSource(videoSrc);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, function() {
-            video.play();
-        });
-    }
-        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = videoSrc;
-            video.addEventListener('loadedmetadata', function() {
-            video.play();
-        });
-    }
-}
-
 
 function enjoyTR () {
     getData(successCountries, serverCountries);

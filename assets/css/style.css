@@ -1,3 +1,4 @@
+/* Global css definitions */
 
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Montserrat:wght@100&display=swap');
 
@@ -5,6 +6,8 @@ body {
     font-family: 'Montserrat', sans-serif;
     background-color: #473E5B;
 }
+
+/* Headers and Panel css definitions */
 
 .headerRB {
     display: flex;
@@ -22,19 +25,6 @@ body {
     padding-right: 20px;
 }
 
-.card {
-    /*border: 1px solid;*/
-    border-radius: 5px;
-    margin: 10px;
-    padding: 10px;
-    background-color: #7F5A77
-}
-
-.faviconRS {
-    display: flex;
-    justify-content: center;
-}
-
 .panelDataRS {
     display: flex;
     flex-direction: column;
@@ -42,10 +32,11 @@ body {
     justify-content: center;
     margin: 15px;
     padding: 15px;
-    /*border: 1px solid;*/
     border-radius: 5px;
     background-color: #3C2E3D;
     color: #fff;
+
+    /* This code was taken from https://codepen.io/jackrobertscott/pen/OMEpKM */
     text-shadow: 
         0 0 5px #fff,
         0 0 10px #fff,
@@ -57,11 +48,6 @@ body {
 
 .panelDataRS p {
     margin: 0;
-}
-
-.infoNameRS {
-    padding: 5px;
-    font-size: 24px;
 }
 
 .panelUpRS,
@@ -89,28 +75,30 @@ body {
     color: #E17369;
 }
 
+/* Panel elements css definitions */
+
+.faviconRS {
+    display: flex;
+    justify-content: center;
+}
+
+.infoNameRS {
+    padding: 5px;
+    font-size: 24px;
+}
+
+/* Generic css objects definitions */ 
+
+.card {
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    background-color: #7F5A77
+}
+
 button {
     margin: 5px;
     width: 50px;
     height: 40px;
     border-radius: 5px;
-}
-
-.metal {
-/*  color: #333333;
-  text-shadow: #66666680 0 -1px 0, #ffffff99 0 2px 1px;
-  background-color: #e5e5e5;
-  box-shadow:*/
-    /*inset #262626 0  0px 0px 1.5px, /* border */
-    /*inset #262626cc 0 -1px 4px 3px, /* soft SD */
-    /*inset #00000040 0 -1px 0px 6px, /* bottom SD */
-    /*inset #ffffffb3 0  2px 1px 6px; /* top HL */
-}
-
-.metal .linear {
-  /*background-image: 
-    -webkit-repeating-linear-gradient(left, #ffffff00 0%, #ffffff00   6%, #ffffff1a 7.5%),
-    -webkit-repeating-linear-gradient(left, #00000000 0%, #00000000   4%, #00000008 4.5%),
-    -webkit-repeating-linear-gradient(left, #ffffff00 0%, #ffffff00 1.2%, #ffffff26 2.2%),
-    linear-gradient(180deg, #c6c6c6 0%, #e5e5e5 47%, #c6c6c6 53%, #b2b2b2 100%);*/
 }

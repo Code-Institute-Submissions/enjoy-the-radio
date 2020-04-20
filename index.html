@@ -11,10 +11,8 @@
     
     <link rel="stylesheet" href="assets/css/style.css" type="text/css"/>
     
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <!-- axios library: https://github.com/axios/axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-    <!-- Our JavaScript file -->
 
     <title>Enjoy the Radio!</title>
 </head>
@@ -22,41 +20,22 @@
 <body id="#enjoyTR">
 
     <div class="headerRB">
-        <img src="assets/images/live-broadcast-icon.png" width="50" height="50">
+        <img src="assets/images/live-broadcast-icon.png" width="50" alt="icon">
         <h1>Enjoy The Radio!</h1>
     </div>
     <div id="dataRB" class="card">
-        <div class="panelRS">
-            <!--<div class="faviconRS">
-                <img src="assets/images/live-broadcast-icon.png" width="50" height="50" alt="fav">
-            </div>-->
-            <div class="panelDataRS">
-                <div class="panelUpRS">
-                    <div class="infoCountryRS">
-                        <p></p>
-                    </div>
-                    <div class="infoBitrateRS">
-                        <p></p>
-                    </div>
-                </div>
-                <div class="infoNameRS">
-                    <p>set power on...</p>
-                </div>
-                <div class="panelDownRS">
-                    <div class="tagRS">
-                        <p></p>
-                    </div>
-                    <div class="favoriteRS">
-                        <!--<i class="far fa-heart"></i>
-                        <i class="fas fa-heart"></i>
-                        <i class="fab fa-intercom"></i>-->
-                    </div>
-                </div>
+        <div class="panelDataRS">
+            <div class="panelUpRS">
+                <div class="infoCountryRS"></div>
+                <div class="infoBitrateRS"></div>
+            </div>
+            <div class="infoNameRS"></div>
+            <div class="panelDownRS">
+                <div class="tagRS"></div>
+                <div class="favoriteRS"></div>
             </div>
         </div>
         <div id="radioSelectors">
-            <button class="metal linear" onclick="getCurrentLocationRadio ()"><i class="fas fa-music"></i></button>
-            <button class="metal linear" onclick="getRadioStations()"><i class="fas fa-align-left"></i></button>
             <button class="playSt metal linear" onclick="playStation ()"><i class="fas fa-play"></i></button>
         </div>
         <div id="radioControls">
@@ -72,9 +51,11 @@
             </div>
         </div>
     </div>
-    <div id="video" class="card"></div>
 
+    <!-- howler library: https://github.com/goldfire/howler.js/ -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js"></script>
+
+    <!-- My own js code -->
     <script type="text/javascript" src="assets/js/radio.js"></script>
 
 </body>
